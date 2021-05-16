@@ -2,8 +2,7 @@
 
 Author: Sean Maden
 
-Repo for all things GEO Array Digest (GAD, including code to post new status message updates 
-to the GAD Bot Twitter account ([@gadbot1](https://twitter.com/gadbot1)).
+Repo for all things GEO Array Digest (GAD), including code for the GAD Bot Twitter account ([@gadbot1](https://twitter.com/gadbot1)).
 
 This repo uses the [Entrez Programming Utilities](https://www.ncbi.nlm.nih.gov/books/NBK179288/) software to query the [GEO](https://www.ncbi.nlm.nih.gov/geo/) API.
 
