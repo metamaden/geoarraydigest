@@ -27,7 +27,7 @@ def run_gad(platformlist = ['GPL13534','GPL21145'],
     """
 metadf_path=os.path.join(datapath, metadf_name)
 
-metadf=pandas.read_table(metadf_path, sep = ' ')
+metadf=pandas.read_table(metadf_path, sep = '\t')
 
 gsm_eqtable(platformlist)
 
