@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import subprocess; os; emoji; random
-
 """ gadbqueries.py
 
 Author: Sean Maden
@@ -20,6 +18,19 @@ Functions:
 * submit_tweet: 
 
 """
+
+import subprocess, os, emoji, random, pandas
+
+def run_gad(platformlist = ['GPL13534','GPL21145'], 
+    dbpath=os.path.join('inst', 'data'),
+    metadb_name='arraymetadb'):
+    """ Main function to assemble a new GEO array digest.
+    """
+metadb_path=os.path.join(dbpath, metadb_name)
+
+gsm_eqtable(platformlist)
+
+    return None
 
 def make_newmsg(lnumarray, ltypearray, laliasarray, charlim=280,
     lexpr = ["neat", "wow", "whoa", "check it out"], 
