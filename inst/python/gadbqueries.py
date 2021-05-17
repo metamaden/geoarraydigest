@@ -25,6 +25,10 @@ def run_gad(platformlist = ['GPL13534','GPL21145'],
     datapath=os.path.join('inst', 'data'), metadf_name='arraymetadb'):
     """ Main function to assemble a new GEO array digest.
     """
+
+datapath=os.path.join('inst', 'data')
+metadf_name='arraymetadf'
+
 metadf_path=os.path.join(datapath, metadf_name)
 
 metadf=pandas.read_table(metadf_path, sep = '\t')
