@@ -22,11 +22,12 @@ Functions:
 import subprocess, os, emoji, random, pandas
 
 def run_gad(platformlist = ['GPL13534','GPL21145'], 
-    dbpath=os.path.join('inst', 'data'),
-    metadb_name='arraymetadb'):
+    datapath=os.path.join('inst', 'data'), metadf_name='arraymetadb'):
     """ Main function to assemble a new GEO array digest.
     """
-metadb_path=os.path.join(dbpath, metadb_name)
+metadf_path=os.path.join(datapath, metadf_name)
+
+metadf=pandas.read_table(metadf_path, sep = ' ')
 
 gsm_eqtable(platformlist)
 
