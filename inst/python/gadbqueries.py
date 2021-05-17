@@ -1,17 +1,79 @@
 #!/usr/bin/env python
 
-import subprocess
-import os
+import subprocess; os; emoji; random
 
 """ gadbqueries.py
 
 Author: Sean Maden
 
-Get tables of available samples (GSM IDs) and studies (GSE IDs) from
+First, get tables of available samples (GSM IDs) and studies (GSE IDs) from
 the Gene Expression Omnibus (GEO). Functions use equery from the Entrez Programming 
 Utilities software (url: https://www.ncbi.nlm.nih.gov/books/NBK179288/).
 
+Next, generate the automated tweet message with randomized generation of 
+start expressions and terminal emojis and tags. Finally, submit the new message 
+to Twitter's API using the `twurl` app.
+
+Functions:
+
+* make_newmsg: 
+* submit_tweet: 
+
 """
+
+def make_newmsg(lnumarray, ltypearray, laliasarray, charlim=280,
+    lexpr = ["neat", "wow", "whoa", "check it out"], 
+    lemojis=[':computer:', ':bulb:', ':chart_with_upwards_trend:', ':bar_chart:',
+    ':microscope:', ':newspaper:', ':calendar:', ':hourglass:'],
+    ltags=['#ncbi', '#biomedicine', '#reproducibleresearch', '#publicdata',
+    '#bioinformatics', '#computationalbiology', '#GEO', '#geoarraydigest',
+    '#biotechnology', '#arraydata', '#microarray', '#geneexpression', 
+    '#genomics', '#dnamethylation', '#epigenetics']
+    ):
+    """ Get the automated message text for a new tweet, with randomization
+    
+    Arguments
+
+    Returns
+        newmsg: Text containing the array summary stats with randomized 
+            expression, emojis, and tags.
+
+    """
+    arrtxt = [
+        str(lnumarray[i]) + ' samples for platform ' + 
+        str(ltypearray[i]) + ' (' + str(laliasarray[i]) + ')'
+        for i in range(len(lnumarray))
+    ]
+    arrtxt = ', '.join(arrtxt[0:-1]) + ', and ' + arrtxt[-1]
+    newtxt = ' '.join([
+            'I just found', arrtxt + 
+            ' in the GEO db! https://www.ncbi.nlm.nih.gov/geo/'
+    ])
+    # randomized beginning expressions
+    rexpr=random.choices(lexpr)[0]+"!";rexpr=rexpr[0].capitalize()+rexpr[1::]
+    newtxt=' '.join([rexpr, newtxt])
+    # pick 2 emojis and tags, up to character limit
+    if len(newmsg) < charlim: 
+        remoji=' '.join([emoji.emojize(i, use_aliases=True) 
+                    for i in random.choices(lemojis, k=3)
+                ])
+        rtags=' '.join([i for i in random.choices(ltags, k=3)])
+        newmsg=' '.join([newtxt, rtags, remoji])
+    else:
+        newmsg=newtxt
+    return newmsg
+
+def submit_tweet(newmsg):
+    """ Submit the new tweet using `twurl`
+    """
+    ll=[
+        'twurl', '-d', 
+        statusmsg, 
+        '/1.1/statuses/update.json'
+    ]; spl=' '.join(ll)
+    output=subprocess.check_output(spl, shell=True)
+    return output
+
 
 def gsm_eqtable(startdate=2000,enddate=2018, platformlist = ['GPL13534','GPL21145'],
     tablename='gsmyeardata', writetable=True):
