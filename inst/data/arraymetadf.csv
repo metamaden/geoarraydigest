@@ -1,3 +1,3 @@
-'platform','alias','type','description'
+accession,alias,type,description
 'GPL13534','HM450K','DNAm','Major array platform manufactured by Illumina probing DNA methylation at roughly 480k CpG loci.'
 'GPL21145','EPIC','DNAm','Major array platform manufatured by Illumina probing DNA methylation at roughly 850k CpG loci.'

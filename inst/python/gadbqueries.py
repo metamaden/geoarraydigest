@@ -22,20 +22,64 @@ Functions:
 import subprocess, os, emoji, random, pandas
 
 def run_gad(platformlist = ['GPL13534','GPL21145'], 
-    datapath=os.path.join('inst', 'data'), metadf_name='arraymetadf.txt'):
-    """ Main function to assemble a new GEO array digest.
+    datapath=os.path.join('inst', 'data'), metadf_name='arraymetadf.csv',
+    queriespath=os.path.join('inst', 'queries'), totalsdir='totals'):
+    """ run_gad
+
+    Main function to assemble a new GEO array digest.
+    
     """
-
-datapath=os.path.join('inst', 'data')
-metadf_name='arraymetadf.txt'
-
-metadf_path=os.path.join(datapath, metadf_name)
-
-metadf=pandas.read_csv(metadf_path, sep = '\s+')
-
-gsm_eqtable(platformlist)
-
+    print("Parsing array metadata df...")
+    platformlist = ['GPL13534','GPL21145']
+    datapath=os.path.join('inst', 'data'); metadf_name='arraymetadf.csv'
+    metadf_path=os.path.join(datapath, metadf_name)
+    metadf=pandas.read_csv(metadf_path, sep = ',', header=0)
+    metadf.type[metadf.accession==platform]
+    rl = get_esearch_rl(platformlist, metadf)
+    # get array diffs
+    # make new message
+    # submit new tweet
     return None
+
+def get_esearch_rl(platformlist, metadf):
+    """ get_esearch_rl
+    
+    Get array info from GEO API using Entrez Direct Utilities.
+
+    """
+    print("Performing new GEO query..."); rl = {}
+    for platform in platformlist:
+        print("Beginning queries for platform " + platform); rl[platform]={}
+        # all studies (GSE IDs)
+        args_gse = ''.join(["esearch -db gds -query '", platform,
+            "[ACCN] AND gse[ETYP] AND Homo sapiens[ORGN]'"])
+        output_gse=subprocess.check_output(args_gse, shell=True)
+        output_gse=str(output_gse)
+        rl[platform]["gse"]=output_gse.split('<Count>')[1].split('</Count>')[0]
+        # all samples (GSM IDs)
+        args_gsm = ''.join(["esearch -db gds -query '", platform,
+            "[ACCN] AND gsm[ETYP] AND Homo sapiens[ORGN]'"])
+        output_gsm=subprocess.check_output(args_gsm, shell=True)
+        output_gsm=str(output_gsm)
+        rl[platform]["gsm"]=output_gsm.split('<Count>')[1].split('</Count>')[0]
+        # for dnam type, also check supplement with `idat[suppFile]`
+        cond=metadf.type[metadf.accession=="'"+platform+"'"]=="'DNAm'"
+        if cond[1]:
+            print("Detecting IDATs for platform " + platform)
+            # studies with IDATs
+            args_gse_idat = ''.join(["esearch -db gds -query '", platform,
+            "[ACCN] AND gse[ETYP] AND Homo sapiens[ORGN] AND idat[suppFile]'"])
+            output_gse_idat=subprocess.check_output(args_gse_idat, shell=True)
+            output_gse_idat=str(output_gse_idat)
+            rl[platform]["gse_idat"]=output_gse_idat.split('<Count>')[1].split('</Count>')[0]
+            # samples with IDATs
+            args_gsm_idat = ''.join(["esearch -db gds -query '", platform,
+            "[ACCN] AND gsm[ETYP] AND Homo sapiens[ORGN] AND idat[suppFile]'"])
+            output_gsm_idat=subprocess.check_output(args_gsm_idat, shell=True)
+            output_gsm_idat=str(output_gsm_idat)
+            rl[platform]["gsm_idat"]=output_gsm_idat.split('<Count>')[1].split('</Count>')[0]
+        print("Finished queries for platform " + platform)
+    return rl
 
 def make_newmsg(lnumarray, ltypearray, laliasarray, charlim=280,
     lexpr = ["neat", "wow", "whoa", "check it out"], 
@@ -89,188 +133,6 @@ def submit_tweet(newmsg):
     ]; spl=' '.join(ll)
     output=subprocess.check_output(spl, shell=True)
     return output
-
-
-def gsm_eqtable(startdate=2000,enddate=2018, platformlist = ['GPL13534','GPL21145'],
-    tablename='gsmyeardata', writetable=True):
-    """ Human sample counts on methylation array platforms, over year range
-        From GEO via equery, fetch sample counts on methylation array platforms
-            over a range of years.
-        Arguments
-            * startdate : start of publication date range to search
-            * enddate : end of publication date range to search
-            * platformlist : methylation array platforms to search
-            * tablename : name of data table to write
-            * writetable : whether to write results into data table
-        Returns
-            * rl (list) : list of results (by platform-year), optionally writing
-                new data table as side effect
-    """
-    yearrange = list(range(startdate-1,enddate+1))  
-    rl = []
-    for platform in platformlist:
-        for year in yearrange:
-            fn = platform+"_"+str(year)
-            subp_strlist1 = ["esearch","-db","gds","-query",
-                "".join(["'",
-                    platform,
-                    "[ACCN] AND gsm[ETYP] AND ",
-                    str(year),
-                    "[PDAT] AND Homo sapiens[ORGN]'"])
-                ]
-            subp_strlist2 = ["efetch","-format","docsum"]
-            subp_strlist3 = ["xtract","-pattern","DocumentSummary",
-                "-element","Id Accession",">",fn]
-            args = " | ".join([" ".join(subp_strlist1),
-                " ".join(subp_strlist2),
-                " ".join(subp_strlist3)])
-            output=subprocess.check_output(args, shell=True)
-            resultlist = [line.rstrip('\n') for line in open(fn)]
-            # use set to grab number of unique ids in the file
-            rl.append([platform,year,str(len(set(resultlist)))])
-            os.remove(fn)
-    # write results to readable table
-    if writetable:
-        with open(tablename,'w') as d:
-            for line in rl:
-                d.write(" ".join([str(k) for k in line])+"\n")
-    return rl
-
-def gse_eqtable(startdate=2000,enddate=2018,tablename='gseyeardata',
-    platformlist = ['GPL13534','GPL21145'], writetable=True):
-    """ Human experiment counts on methylation array platforms, over year range
-        From GEO via equery, fetch experiment counts on methylation array 
-            platforms over a range of years.
-        Arguments
-            * startdate : start of publication date range to search
-            * enddate : end of publication date range to search
-            * platformlist : methylation array platforms to search
-            * tablename : name of data table to write
-            * writetable : whether to write results into data table
-        Returns
-            * rl (list) : list of results (by platform-year), optionally writing
-                new data table as side effect
-    """
-    yearrange = list(range(startdate-1,enddate+1))  
-    rl = []
-    for platform in platformlist:
-        for year in yearrange:
-            fn = platform+"_"+str(year)
-            subp_strlist1 = ["esearch","-db","gds","-query",
-                "".join(["'",
-                    platform,
-                    "[ACCN] AND gse[ETYP] AND ",
-                    str(year),
-                    "[PDAT]'"])
-                ]
-            subp_strlist2 = ["efetch","-format","docsum"]
-            subp_strlist3 = ["xtract","-pattern","DocumentSummary",
-                "-element","Id Accession",">",fn]
-            args = " | ".join([" ".join(subp_strlist1),
-                " ".join(subp_strlist2),
-                " ".join(subp_strlist3)])
-            output=subprocess.check_output(args, shell=True)
-            resultlist = [line.rstrip('\n') for line in open(fn)]
-            # use set to grab number of unique ids in the file
-            rl.append([platform,year,str(len(set(resultlist)))])
-            os.remove(fn)
-    # write results to readable table
-    if writetable:
-        with open(tablename,'w') as d:
-            for line in rl:
-                d.write(" ".join([str(k) for k in line])+"\n")
-    return rl
-
-def gsmidat_eqtable(startdate=2000,enddate=2018,
-    platformlist = ['GPL13534','GPL8490','GPL21145'],tablename='gsmidatyrdat',
-    writetable=True):
-    """ Human gsm idat counts on methylation array platforms, over year range
-        From GEO via equery, fetch experiment counts on methylation array 
-            platforms over a range of years.
-        Arguments
-            * startdate : start of publication date range to search
-            * enddate : end of publication date range to search
-            * platformlist : methylation array platforms to search
-            * tablename : name of data table to write
-            * writetable : whether to write results into data table
-        Returns
-            * rl (list) : list of results (by platform-year), optionally writing
-                new data table as side effect
-    """
-    yearrange = list(range(startdate-1,enddate+1))  
-    rl = []
-    for platform in platformlist:
-        for year in yearrange:
-            fn = platform+"_"+str(year)
-            subp_strlist1 = ["esearch","-db","gds","-query",
-                "".join(["'",
-                    platform,
-                    "[ACCN] AND idat[suppFile] AND gsm[ETYP]",
-                    str(year),
-                    "[PDAT] AND Homo sapiens[ORGN]'"])
-                ]
-            subp_strlist2 = ["efetch","-format","docsum"]
-            subp_strlist3 = ["xtract","-pattern","DocumentSummary",
-                "-element","Id Accession",">",fn]
-            args = " | ".join([" ".join(subp_strlist1),
-                " ".join(subp_strlist2),
-                " ".join(subp_strlist3)])
-            output=subprocess.check_output(args, shell=True)
-            resultlist = [line.rstrip('\n') for line in open(fn)]
-            # use set to grab number of unique ids in the file
-            rl.append([platform,year,str(len(set(resultlist)))])
-            os.remove(fn)
-    # write results to readable table
-    if writetable:
-        with open(tablename,'w') as d:
-            for line in rl:
-                d.write(" ".join([str(k) for k in line])+"\n")
-    return rl
-
-def gseidat_eqtable(startdate=2000,enddate=2018, platformlist = ['GPL13534','GPL21145'],
-    tablename='gseidatyrdat', writetable=True):
-    """ Human gse idat counts on methylation array platforms, over year range
-        From GEO via equery, fetch experiment counts on methylation array 
-            platforms over a range of years.
-        Arguments
-            * startdate : start of publication date range to search
-            * enddate : end of publication date range to search
-            * platformlist : methylation array platforms to search
-            * tablename : name of data table to write
-            * writetable : whether to write results into data table
-        Returns
-            * rl (list) : list of results (by platform-year), optionally writing
-                new data table as side effect
-    """
-    yearrange = list(range(startdate-1,enddate+1))  
-    rl = []
-    for platform in platformlist:
-        for year in yearrange:
-            fn = platform+"_"+str(year)
-            subp_strlist1 = ["esearch","-db","gds","-query",
-                "".join(["'",
-                    platform,
-                    "[ACCN] AND idat[suppFile] AND gse[ETYP]",
-                    str(year),
-                    "[PDAT] AND Homo sapiens[ORGN]'"])
-                ]
-            subp_strlist2 = ["efetch","-format","docsum"]
-            subp_strlist3 = ["xtract","-pattern","DocumentSummary",
-                "-element","Id Accession",">",fn]
-            args = " | ".join([" ".join(subp_strlist1),
-                " ".join(subp_strlist2),
-                " ".join(subp_strlist3)])
-            output=subprocess.check_output(args, shell=True)
-            resultlist = [line.rstrip('\n') for line in open(fn)]
-            # use set to grab number of unique ids in the file
-            rl.append([platform,year,str(len(set(resultlist)))])
-            os.remove(fn)
-    # write results to readable table
-    if writetable:
-        with open(tablename,'w') as d:
-            for line in rl:
-                d.write(" ".join([str(k) for k in line])+"\n")
-    return rl
 
 if __name__ == "__main__":
     """ Generate tables of available samples and studies
