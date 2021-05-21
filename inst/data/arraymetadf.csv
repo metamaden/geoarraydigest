@@ -1,6 +1,6 @@
-accession,alias,type,description,release_date,spp
-GPL13534,Illumina Infinium HM450 BeadChip,DNAm,Major array platform probing DNA methylation at roughly 480k CpG loci.,13-May-11,human
-GPL21145,Illumina Infinium EPIC/HM850 BeadChip,DNAm,Major array platform probing DNA methylation at roughly 850k CpG loci.,16-Nov-15,human
-GPL570,Affymetrix Human Genome U133 Plus 2.0 Array,expression,Major human gene expression/transcript profiling array using oligonucleotide assays.,3-Nov-03,human
-GPL10558,Illumina HumanHT-12 V4.0 expression beadchip,expression,Major human gene expression/transcript profiling array using oligonucleotide beads.,17-Jan-10,human
-GPL96,Affymetrix Human Genome U133A Array,expression,Major human gene expression/transcript profiling array using oligonucleotide assays.,3/11/02,human
+accession,alias,type,description,release_date,spp,alias_short
+GPL13534,Illumina Infinium HM450 BeadChip,DNAm,Major array platform probing DNA methylation at roughly 480k CpG loci.,13-May-11,human,HM450K
+GPL21145,Illumina Infinium EPIC/HM850 BeadChip,DNAm,Major array platform probing DNA methylation at roughly 850k CpG loci.,16-Nov-15,human,EPIC
+GPL570,Affymetrix Human Genome U133 Plus 2.0 Array,expr,Major human gene expression/transcript profiling array using oligonucleotide assays.,3-Nov-03,human,U133_v2
+GPL10558,Illumina HumanHT-12 V4.0 expression beadchip,expr,Major human gene expression/transcript profiling array using oligonucleotide beads.,17-Jan-10,human,HT12_v4
+GPL96,Affymetrix Human Genome U133A Array,expr,Major human gene expression/transcript profiling array using oligonucleotide assays.,3/11/02,human,U113A

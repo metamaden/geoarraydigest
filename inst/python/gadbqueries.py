@@ -21,7 +21,7 @@ Functions:
 
 import subprocess, os, emoji, random, pandas
 
-def run_gad(platformlist = ['GPL13534','GPL21145', 'GPL25480', 'GPL26698', 'GPL26699'],
+def run_gad(platformlist = ['GPL13534','GPL21145', 'GPL570', 'GPL10558', 'GPL96'],
     datapath=os.path.join('inst', 'data'), metadf_name='arraymetadf.csv',
     queriespath=os.path.join('inst', 'queries'), totalsdir='totals'):
     """ run_gad
@@ -30,11 +30,9 @@ def run_gad(platformlist = ['GPL13534','GPL21145', 'GPL25480', 'GPL26698', 'GPL2
     
     """
     print("Parsing array metadata df...")
-    platformlist = ['GPL13534','GPL21145']
     datapath=os.path.join('inst', 'data'); metadf_name='arraymetadf.csv'
     metadf_path=os.path.join(datapath, metadf_name)
     metadf=pandas.read_csv(metadf_path, sep = ',', header=0)
-    metadf.type[metadf.accession==platform]
     rl = get_esearch_rl(platformlist, metadf)
     # get array diffs
     # make new message
@@ -135,10 +133,10 @@ def submit_tweet(newmsg):
     output=subprocess.check_output(spl, shell=True)
     return output
 
+"twurl -d 'status=" + newmsg + "'" + " /1.1/statuses/update.json" 
+
+twurl -d 'status=Neat! I just found 107039 GSMs for acc GPL13534 (type: DNAm, alias: HM450K), 25130 GSMs for acc GPL21145 (type: DNAm, alias: EPIC), and 160861 GSMs for acc GPL570 (type: expr, alias: U133_v2) in GEO! #genomics #dnamethylation #biotechnology 🔬 ⌛ 📆' /1.1/statuses/update.json
+
 if __name__ == "__main__":
     """ Generate tables of available samples and studies
     """
-    gsm_eqtable()
-    gse_eqtable()
-    gsmidat_eqtable()
-    gseidat_eqtable()
