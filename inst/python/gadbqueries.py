@@ -21,7 +21,7 @@ Functions:
 
 import subprocess, os, emoji, random, pandas
 
-def run_gad(platformlist = ['GPL13534','GPL21145'], 
+def run_gad(platformlist = ['GPL13534','GPL21145', 'GPL25480', 'GPL26698', 'GPL26699'],
     datapath=os.path.join('inst', 'data'), metadf_name='arraymetadf.csv',
     queriespath=os.path.join('inst', 'queries'), totalsdir='totals'):
     """ run_gad
@@ -101,7 +101,8 @@ def make_newmsg(lnumarray, ltypearray, laliasarray, charlim=280,
     """
     arrtxt = [
         str(lnumarray[i]) + ' samples for platform ' + 
-        str(ltypearray[i]) + ' (' + str(laliasarray[i]) + ')'
+        str(ltypearray[i]) + ' (alias: ' + str(laliasarray[i]) + 
+        ', type: ' + str(ltypearray[i]) + ')'
         for i in range(len(lnumarray))
     ]
     arrtxt = ', '.join(arrtxt[0:-1]) + ', and ' + arrtxt[-1]
