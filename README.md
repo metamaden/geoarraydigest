@@ -1,3 +1,10 @@
+---
+title: "GAD ReadMe"
+author: "Sean Maden"
+date: "20 May 2021"
+output: html_document
+---
+
 # GEO Array Digest (GAD)
 
 Author: Sean Maden
