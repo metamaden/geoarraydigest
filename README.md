@@ -11,3 +11,6 @@ Automated status updates to the GAD Bot Twitter account are made using the [twit
 
 Stay tuned for an upcoming [blog](https://metamaden.github.io/blog/) about how these components work together to make the GAD and GAD Bot resources.
 
+```{r, echo = TRUE, message = TRUE}
+knitr::kable(read.csv("inst/data/arraymetadf.csv"), align = "c")
+```
