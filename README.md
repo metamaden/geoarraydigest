@@ -1,4 +1,4 @@
-# GEO Array Digest (GAD)
+# GEO Array Digest
 
 Author: Sean Maden
 
