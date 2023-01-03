@@ -1,10 +1,12 @@
 - name: Home
   link: /
-- name: About
-  link: /about.html
 - name: Digests
   link: /digests.html
-- name: Blog
+- name: DevBlog
   link: /blogs.html
+- name: Platforms
+  link: /array_platforms.html
+- name: About
+  link: /about.html
 - name: Author
   link: /staff.html
