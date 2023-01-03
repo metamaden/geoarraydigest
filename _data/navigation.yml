@@ -2,7 +2,9 @@
   link: /
 - name: About
   link: /about.html
+- name: Digests
+  link: /digests.html
 - name: Blog
-  link: /blog.html
-- name: Staff
+  link: /blogs.html
+- name: Author
   link: /staff.html

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 2023-01-03 Array Digest
+author: sean
 ---
 For platform GPL13534 (HM450K), found 1594 studies and 112586 samples.. Of these, 824 studies and 58180 samples have IDATs.
 

@@ -1,4 +1,5 @@
-remote_theme: pages-themes/cayman@v0.2.0
+# remote_theme: pages-themes/cayman@v0.2.0
+theme: minima
 
 collections:
   authors:
@@ -12,7 +13,12 @@ defaults:
       layout: "author"
   - scope:
       path: ""
-      type: "posts"
+      type: "digests"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "blogs"
     values:
       layout: "post"
   - scope:
@@ -24,4 +30,4 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-remote-theme # add this line to the plugins list if you already have one
+  # - jekyll-remote-theme # add this line to the plugins list if you already have one
