@@ -1,6 +1,16 @@
 # GEO Array Digest
 
-Author: Sean Maden
+## Array digests
+
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+## About
 
 This is a repo for all things GEO Array Digest (GAD), including code for the GAD Bot Twitter account ([@gadbot1](https://twitter.com/gadbot1)). 
 
@@ -11,7 +21,7 @@ Automated status updates to the GAD Bot Twitter account are made using the [twit
 
 Stay tuned for an upcoming [blog](https://metamaden.github.io/blog/) about how these components work together to make the GAD and GAD Bot resources.
 
-# Array platforms
+## Array platforms
 
 The digest targets a handful of the most numerous or active [platforms](https://www.ncbi.nlm.nih.gov/geo/browse/?view=platforms) on GEO. 
 Details about the array platforms included in digests are provided in the manifest table at `inst/data/arraymetadf.csv`. 
