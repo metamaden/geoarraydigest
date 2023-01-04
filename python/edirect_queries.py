@@ -111,7 +111,7 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 			if cond.bool():
 				newline = "".join(
 				[
-					newline,". Of these, ",digacc['gse_idat']," studies and ",
+					newline," Of these, ",digacc['gse_idat']," studies and ",
 					digacc['gsm_idat']," samples have IDATs."
 				]
 				)
