@@ -86,10 +86,10 @@ def write_data(dig, metadf, datestr, datapath = os.path.join("data"),
 	of.close()
 	return True
 
-def write_post(dig, metadf, datestr, postpath = os.path.join("_posts")):
+def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext="md"):
 	"""
 	"""
-	newpost_fname = datestr+"-Array-Digest.MARKUP"
+	newpost_fname = ".".join([datestr+"-Array-Digest",postext])
 	newpost_fpath = os.path.join(postpath, newpost_fname)
 	print("Writing data to post: `"+newpost_fpath+"`...")
 	with open(newpost_fpath, "w") as of:
