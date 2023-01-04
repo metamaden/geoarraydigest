@@ -15,10 +15,10 @@ defaults:
       path: ""
       type: "digests"
     values:
-      layout: "post"
+      layout: "default"
   - scope:
       path: ""
-      type: "blogs"
+      type: "posts"
     values:
       layout: "post"
   - scope:
