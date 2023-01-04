@@ -1,30 +1,11 @@
 # GEO Array Digest
 
-## Array digests
-
-<ul>
-  {% for post in site.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
-
 ## About
 
-This is a repo for all things GEO Array Digest (GAD), including code for the GAD Bot Twitter account ([@gadbot1](https://twitter.com/gadbot1)). 
-
-The GAD Bot is an automated messaging service that posts text summaries of public array datasets made available in GEO. It is maintained by Sean Maden (GitHub: [metamaden](https://github.com/metamaden), Twitter: [@MadenSean](https://twitter.com/MadenSean)), a Ph.D. candidate in Computational Biology at Oregon Health & Science University ([OHSU](https://www.ohsu.edu/people/sean-maden)).
-
-The GAD service was constructed by scheduling queries to the [GEO](https://www.ncbi.nlm.nih.gov/geo/) API using the [Entrez Programming Utilities](https://www.ncbi.nlm.nih.gov/books/NBK179288/) software.
-Automated status updates to the GAD Bot Twitter account are made using the [twitteR](https://cran.r-project.org/web/packages/twitteR/index.html) R package in a [snakemake](https://snakemake.readthedocs.io/en/stable/) workflow. 
-
-Stay tuned for an upcoming [blog](https://metamaden.github.io/blog/) about how these components work together to make the GAD and GAD Bot resources.
+This is a repo for all things GEO Array Digest (GAD), including code for the GAD Bot Twitter account ([@gadbot1](https://twitter.com/gadbot1)). The GAD Bot is an automated messaging service that posts text summaries of public array datasets made available in GEO. It is maintained by Sean Maden (GitHub: [metamaden](https://github.com/metamaden)).
 
 ## Array platforms
 
-The digest targets a handful of the most numerous or active [platforms](https://www.ncbi.nlm.nih.gov/geo/browse/?view=platforms) on GEO. 
-Details about the array platforms included in digests are provided in the manifest table at `inst/data/arraymetadf.csv`. 
 The current version of the array platforms manifest looks like this:
 
 |accession|alias                                       |type      |description                                                                         |release_date|spp  |
