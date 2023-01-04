@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>2023-01-04 Array Digest</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" />
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>2023-01-04 Array Digest</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="2023-01-04 Array Digest" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="For platform GPL13534 (HM450K), found 1594 studies and 112586 samples.. Of these, 824 studies and 58180 samples have IDATs." />
+<meta property="og:description" content="For platform GPL13534 (HM450K), found 1594 studies and 112586 samples.. Of these, 824 studies and 58180 samples have IDATs." />
+<link rel="canonical" href="http://localhost:4000/2023/01/04/Array-Digest.MARKUP" />
+<meta property="og:url" content="http://localhost:4000/2023/01/04/Array-Digest.MARKUP" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-01-04T00:00:00-08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="2023-01-04 Array Digest" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-01-04T00:00:00-08:00","datePublished":"2023-01-04T00:00:00-08:00","description":"For platform GPL13534 (HM450K), found 1594 studies and 112586 samples.. Of these, 824 studies and 58180 samples have IDATs.","headline":"2023-01-04 Array Digest","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2023/01/04/Array-Digest.MARKUP"},"url":"http://localhost:4000/2023/01/04/Array-Digest.MARKUP"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+  <body>
+    <nav>
+  
+    <a href="/geoarraydigest/index.md" >Home</a>
+  
+    <a href="/geoarraydigest/digests.html" >Digests</a>
+  
+    <a href="/geoarraydigest/array_platforms.md" >Platforms</a>
+  
+    <a href="/geoarraydigest/about.md" >About</a>
+  
+    <a href="/geoarraydigest/staff.html" >Author</a>
+  
+</nav>
+    <h1>2023-01-04 Array Digest</h1>
+
+<p>
+  04 Jan 2023
+  
+  
+    - <a href="/authors/sean-maden.html">Sean Maden (a.k.a. "metamaden")</a>
+  
+</p>
+
+For platform GPL13534 (HM450K), found 1594 studies and 112586 samples.. Of these, 824 studies and 58180 samples have IDATs.
+
+For platform GPL21145 (EPIC), found 798 studies and 50875 samples.. Of these, 682 studies and 39843 samples have IDATs.
+
+For platform GPL570 (U133_v2), found 5569 studies and 166334 samples.
+
+For platform GPL10558 (HT12_v4), found 2889 studies and 99847 samples.
+
+For platform GPL96 (U113A), found 1122 studies and 41608 samples.
+
+
+  </body>
+</html>

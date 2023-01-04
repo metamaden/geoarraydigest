@@ -1,4 +1,5 @@
 ---
+layout: default
 ---
 
 # Array platforms

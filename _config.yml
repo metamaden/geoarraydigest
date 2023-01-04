@@ -25,6 +25,11 @@ defaults:
       path: ""
     values:
       layout: "default"
+  - scope:
+      path: ""
+      type: "array_platforms"
+    values:
+      layout: "default"
 
 plugins:
   - jekyll-feed
