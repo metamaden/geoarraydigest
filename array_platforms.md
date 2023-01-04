@@ -4,9 +4,7 @@ layout: default
 
 # Array platforms
 
-The digest targets a handful of the most numerous or active [platforms](https://www.ncbi.nlm.nih.gov/geo/browse/?view=platforms) on GEO. 
-Details about the array platforms included in digests are provided in the manifest table at `inst/data/arraymetadf.csv`. 
-The current version of the array platforms manifest looks like this:
+The digest targets a handful of the most numerous or active [platforms](https://www.ncbi.nlm.nih.gov/geo/browse/?view=platforms) on GEO. Details about the array platforms included in digests are provided in the manifest table at `~/data/arraymetadf.csv`. The current version of the array platforms manifest looks like this:
 
 |accession|alias                                       |type      |description                                                                         |release_date|spp  |
 |---------|--------------------------------------------|----------|------------------------------------------------------------------------------------|------------|-----|
