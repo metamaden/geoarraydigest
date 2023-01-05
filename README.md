@@ -2,7 +2,7 @@
 
 ## About
 
-This is a repo for all things GEO Array Digest (GAD), including code for the GAD Bot Twitter account ([@gadbot1](https://twitter.com/gadbot1)). The GAD Bot is an automated messaging service that posts text summaries of public array datasets made available in GEO. It is maintained by Sean Maden (GitHub: [metamaden](https://github.com/metamaden)).
+This is a repo for all things GEO Array Digest (GAD), including code for the digest website and the GAD Bot Twitter account ([@gadbot1](https://twitter.com/gadbot1)). The GAD Bot is an automated messaging service that posts text summaries of public array datasets made available in GEO. It is maintained by Sean Maden (GitHub: [metamaden](https://github.com/metamaden)).
 
 ## Array platforms
 
