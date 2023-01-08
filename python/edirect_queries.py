@@ -23,6 +23,9 @@ def new_digest(platformlist = ['GPL13534','GPL21145', 'GPL570', 'GPL10558', 'GPL
 	metadf=pandas.read_csv(metadf_path, sep = ',', header=0)
 	print("Querying the GDS API...")
 	dig = get_esearch_rl(platformlist, metadf)
+	print("Getting query analysis...")
+	dig = analyze_query_data(dig)
+	dig = compare_query_data(dig)
 	print("Writing query results to data table...")
 	datestr = date.today().strftime("%Y-%m-%d")
 	write_data(dig, metadf, datestr)
@@ -86,6 +89,34 @@ def write_data(dig, metadf, datestr, datapath = os.path.join("data"),
 	of.close()
 	return True
 
+def analyze_query_data(dig):
+	"""
+	Gets key statistics for digest.
+	"""
+	dig_new = {}
+	for platid in dig.keys():
+		print("working on platform: " + str(platid))
+		dig_new[platid] = {}
+		pdat = dig[platid]
+		platformi = [ki for ki in dig.keys()][0]
+		dig_new[platid] = pdat
+		gsm_per_gse = int(pdat["gsm"])/int(pdat["gse"])
+		gsm_per_gse = round(gsm_per_gse, 3)
+		dig_new[platid]["gsm_per_gse"] = gsm_per_gse
+		if "gsm_idat" in pdat.keys():
+			fract_idat_gse = 100*round(int(pdat["gse_idat"])/int(pdat["gse"]))
+			fract_idat_gsm = 100*round(int(pdat["gsm_idat"])/int(pdat["gsm"]))
+			dig_new[platid]["fract_idat_gse"] = fract_idat_gse
+			dig_new[platid]["fract_idat_gsm"] = fract_idat_gsm
+	return dig
+
+def compare_query_data(dig):
+	"""
+	Compares recent query results with last query results.
+	"""
+	return dig
+
+
 def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext="md"):
 	"""
 	"""
@@ -104,15 +135,19 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 			[
 				"For platform ",accid," (",alias,"), found ",
 				digacc['gse']," studies and ",
-				digacc['gsm']," samples."
+				digacc['gsm']," samples, or ",
+				digacc['gsm_per_gse'], " samples per study."
 			]
 			)
 			cond = metadf.type[metadf.accession==accid]=="DNAm"
 			if cond.bool():
 				newline = "".join(
 				[
-					newline," Of these, ",digacc['gse_idat']," studies and ",
-					digacc['gsm_idat']," samples have IDATs."
+					newline," Of these, ",digacc['gse_idat'],
+					" studies (", digacc['fract_idat_gse'],
+					"%) and ", digacc['gsm_idat'],
+					" samples ()", digacc["fract_idat_gsm"],
+					"%) have IDATs."
 				]
 				)
 			of.write(newline+"\n\n")
