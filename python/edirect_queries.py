@@ -133,7 +133,7 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 			alias = metadf.alias_short[metadf.accession==accid].tolist()[0]
 			newline = "".join(
 			[
-				"#", alias, "\n",
+				"# ", alias, "\n",
 				"For platform ",accid," (",alias,"), found ",
 				digacc['gse']," studies and ",
 				digacc['gsm']," samples, or ",
