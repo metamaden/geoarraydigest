@@ -9,7 +9,7 @@ Author: Sean Maden
 import subprocess, os, pandas
 from datetime import date
 
-def new_digest(platformlist = ['GPL13534','GPL21145', 'GPL570', 'GPL10558', 'GPL96'],
+def new_digest(platformlist = ['GPL21145', 'GPL13534', 'GPL570', 'GPL10558', 'GPL96'],
 	datapath=os.path.join('data'), metadf_name='arraymetadf.csv',
 	queriespath=os.path.join('inst', 'queries'), totalsdir='totals'):
 	""" run_gad
@@ -89,7 +89,7 @@ def write_data(dig, metadf, datestr, datapath = os.path.join("data"),
 	of.close()
 	return True
 
-def analyze_query_data(dig, num_round = 0):
+def analyze_query_data(dig, num_round = 2):
 	"""
 	Gets key statistics for digest.
 	"""
