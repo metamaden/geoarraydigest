@@ -84,7 +84,7 @@ def write_data(dig, metadf, datestr, datapath = os.path.join("data"),
 			col4 = metadf.release_date[metadf.accession==col1].tolist()[0]
 			for key2 in dig[key1].keys():
 				col5 = key2
-				col6 = dig[key1][key2]
+				col6 = str(dig[key1][key2])
 				of.write(",".join([col1,col2,col3,col4,col5,col6+"\n"]))
 	of.close()
 	return True
@@ -104,8 +104,8 @@ def analyze_query_data(dig):
 		gsm_per_gse = round(gsm_per_gse, 3)
 		dig_new[platid]["gsm_per_gse"] = gsm_per_gse
 		if "gsm_idat" in pdat.keys():
-			fract_idat_gse = 100*round(int(pdat["gse_idat"])/int(pdat["gse"]))
-			fract_idat_gsm = 100*round(int(pdat["gsm_idat"])/int(pdat["gsm"]))
+			fract_idat_gse = 100*round(int(pdat["gse_idat"])/int(pdat["gse"]), 3)
+			fract_idat_gsm = 100*round(int(pdat["gsm_idat"])/int(pdat["gsm"]), 3)
 			dig_new[platid]["fract_idat_gse"] = fract_idat_gse
 			dig_new[platid]["fract_idat_gsm"] = fract_idat_gsm
 	return dig
