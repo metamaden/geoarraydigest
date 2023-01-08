@@ -148,8 +148,8 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 				newline = "".join(
 				[
 					newline," Of these, ",
-					format(int(digacc['gse_idat']), ',d'), " studies (", digacc['fract_idat_gse'], "%)",
-					" and ", format(int(digacc['gsm_idat']), ',d')," samples (", digacc["fract_idat_gsm"],"%)",
+					format(int(digacc['gse_idat']), ',d'), " studies (", format(int(digacc['fract_idat_gse']), ',d'), "%)",
+					" and ", format(int(digacc['gsm_idat']), ',d')," samples (", format(int(digacc["fract_idat_gsm"]), ',d'),"%)",
 					" have IDATs."
 				]
 				)
