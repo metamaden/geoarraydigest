@@ -133,6 +133,7 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 			alias = metadf.alias_short[metadf.accession==accid].tolist()[0]
 			newline = "".join(
 			[
+				"#", alias, "\n",
 				"For platform ",accid," (",alias,"), found ",
 				digacc['gse']," studies and ",
 				digacc['gsm']," samples, or ",
@@ -143,11 +144,10 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 			if cond.bool():
 				newline = "".join(
 				[
-					newline," Of these, ",digacc['gse_idat'],
-					" studies (", digacc['fract_idat_gse'],
-					"%) and ", digacc['gsm_idat'],
-					" samples ()", digacc["fract_idat_gsm"],
-					"%) have IDATs."
+					newline," Of these, ",
+					digacc['gse_idat'], " studies (", digacc['fract_idat_gse'], "%)",
+					" and ", digacc['gsm_idat']," samples (", digacc["fract_idat_gsm"],"%)",
+					" have IDATs."
 				]
 				)
 			of.write(newline+"\n\n")
