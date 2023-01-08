@@ -129,7 +129,8 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 		of.write("title: "+datestr+" Array Digest\n")
 		of.write("---\n")
 		of.write("\n")
-		od.write("# Summarizes by platform")
+		of.write("# Summaries by platform\n")
+		of.write("\n")
 		for accid in dig.keys():
 			digacc = dig[accid]
 			alias = metadf.alias_short[metadf.accession==accid].tolist()[0]
