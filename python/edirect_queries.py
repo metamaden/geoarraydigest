@@ -102,12 +102,12 @@ def analyze_query_data(dig):
 		dig_new[platid] = pdat
 		gsm_per_gse = int(pdat["gsm"])/int(pdat["gse"])
 		gsm_per_gse = round(gsm_per_gse, 3)
-		dig_new[platid]["gsm_per_gse"] = gsm_per_gse
+		dig_new[platid]["gsm_per_gse"] = str(gsm_per_gse)
 		if "gsm_idat" in pdat.keys():
 			fract_idat_gse = 100*round(int(pdat["gse_idat"])/int(pdat["gse"]), 3)
 			fract_idat_gsm = 100*round(int(pdat["gsm_idat"])/int(pdat["gsm"]), 3)
-			dig_new[platid]["fract_idat_gse"] = fract_idat_gse
-			dig_new[platid]["fract_idat_gsm"] = fract_idat_gsm
+			dig_new[platid]["fract_idat_gse"] = str(fract_idat_gse)
+			dig_new[platid]["fract_idat_gsm"] = str(fract_idat_gsm)
 	return dig
 
 def compare_query_data(dig):
