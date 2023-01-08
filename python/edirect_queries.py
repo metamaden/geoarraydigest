@@ -128,12 +128,14 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 		of.write("layout: post\n")
 		of.write("title: "+datestr+" Array Digest\n")
 		of.write("---\n")
+		of.write("\n")
+		od.write("# Summarizes by platform")
 		for accid in dig.keys():
 			digacc = dig[accid]
 			alias = metadf.alias_short[metadf.accession==accid].tolist()[0]
 			newline = "".join(
 			[
-				"# ", alias, "\n",
+				"## Platform alias: ", alias, "\n",
 				"For platform ",accid," (",alias,"), found ",
 				print("{:,}".format(digacc['gse']))," studies and ",
 				print("{:,}".format(digacc['gsm']))," samples, or ",
