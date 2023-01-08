@@ -102,12 +102,12 @@ def analyze_query_data(dig, num_round = 0):
 		dig_new[platid] = pdat
 		gsm_per_gse = int(pdat["gsm"])/int(pdat["gse"])
 		gsm_per_gse = round(gsm_per_gse, num_round)
-		dig_new[platid]["gsm_per_gse"] = str(gsm_per_gse)
+		dig_new[platid]["gsm_per_gse"] = gsm_per_gse
 		if "gsm_idat" in pdat.keys():
 			fract_idat_gse = 100*round(int(pdat["gse_idat"])/int(pdat["gse"]), num_round)
 			fract_idat_gsm = 100*round(int(pdat["gsm_idat"])/int(pdat["gsm"]), num_round)
-			dig_new[platid]["fract_idat_gse"] = str(fract_idat_gse)
-			dig_new[platid]["fract_idat_gsm"] = str(fract_idat_gsm)
+			dig_new[platid]["fract_idat_gse"] = fract_idat_gse
+			dig_new[platid]["fract_idat_gsm"] = fract_idat_gsm
 	return dig
 
 def compare_query_data(dig):
@@ -138,9 +138,9 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 			[
 				"## Platform alias: ", alias, "\n",
 				"For platform ",accid," (",alias,"), found ",
-				format(int(round(digacc['gse'], 0)), ',d')," studies and ",
-				format(int(round(digacc['gsm'], 0)), ',d')," samples, or ",
-				format(int(round(digacc['gsm_per_gse'], 0)), ',d'), " samples per study."
+				format(int(digacc['gse']), ',d')," studies and ",
+				format(int(digacc['gsm']), ',d')," samples, or ",
+				format(int(digacc['gsm_per_gse']), ',d'), " samples per study."
 			]
 			)
 			cond = metadf.type[metadf.accession==accid]=="DNAm"
@@ -148,8 +148,8 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 				newline = "".join(
 				[
 					newline," Of these, ",
-					format(int(round(digacc['gse_idat'], 0)), ',d'), " studies (", digacc['fract_idat_gse'], "%)",
-					" and ", format(int(round(digacc['gsm_idat'], 0)), ',d')," samples (", digacc["fract_idat_gsm"],"%)",
+					format(int(digacc['gse_idat']), ',d'), " studies (", digacc['fract_idat_gse'], "%)",
+					" and ", format(int(digacc['gsm_idat']), ',d')," samples (", digacc["fract_idat_gsm"],"%)",
 					" have IDATs."
 				]
 				)
