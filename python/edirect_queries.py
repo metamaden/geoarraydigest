@@ -89,7 +89,7 @@ def write_data(dig, metadf, datestr, datapath = os.path.join("data"),
 	of.close()
 	return True
 
-def analyze_query_data(dig):
+def analyze_query_data(dig, num_round = 0):
 	"""
 	Gets key statistics for digest.
 	"""
@@ -101,11 +101,11 @@ def analyze_query_data(dig):
 		platformi = [ki for ki in dig.keys()][0]
 		dig_new[platid] = pdat
 		gsm_per_gse = int(pdat["gsm"])/int(pdat["gse"])
-		gsm_per_gse = round(gsm_per_gse, 3)
+		gsm_per_gse = round(gsm_per_gse, num_round)
 		dig_new[platid]["gsm_per_gse"] = str(gsm_per_gse)
 		if "gsm_idat" in pdat.keys():
-			fract_idat_gse = 100*round(int(pdat["gse_idat"])/int(pdat["gse"]), 3)
-			fract_idat_gsm = 100*round(int(pdat["gsm_idat"])/int(pdat["gsm"]), 3)
+			fract_idat_gse = 100*round(int(pdat["gse_idat"])/int(pdat["gse"]), num_round)
+			fract_idat_gsm = 100*round(int(pdat["gsm_idat"])/int(pdat["gsm"]), num_round)
 			dig_new[platid]["fract_idat_gse"] = str(fract_idat_gse)
 			dig_new[platid]["fract_idat_gsm"] = str(fract_idat_gsm)
 	return dig
