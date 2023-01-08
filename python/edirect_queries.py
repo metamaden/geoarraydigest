@@ -138,9 +138,9 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 			[
 				"## Platform alias: ", alias, "\n",
 				"For platform ",accid," (",alias,"), found ",
-				format(int(digacc['gse']), ',d')," studies and ",
-				format(int(digacc['gsm']), 'd')," samples, or ",
-				format(int(digacc['gsm_per_gse']), 'd'), " samples per study."
+				format(int(round(digacc['gse'], 0)), ',d')," studies and ",
+				format(int(round(digacc['gsm'], 0)), ',d')," samples, or ",
+				format(int(round(digacc['gsm_per_gse'], 0)), ',d'), " samples per study."
 			]
 			)
 			cond = metadf.type[metadf.accession==accid]=="DNAm"
@@ -148,8 +148,8 @@ def write_post(dig, metadf, datestr, postpath = os.path.join("_posts"), postext=
 				newline = "".join(
 				[
 					newline," Of these, ",
-					format(int(digacc['gse_idat']), 'd'), " studies (", digacc['fract_idat_gse'], "%)",
-					" and ", format(int(digacc['gsm_idat']), 'd')," samples (", digacc["fract_idat_gsm"],"%)",
+					format(int(round(digacc['gse_idat'], 0)), ',d'), " studies (", digacc['fract_idat_gse'], "%)",
+					" and ", format(int(round(digacc['gsm_idat'], 0)), ',d')," samples (", digacc["fract_idat_gsm"],"%)",
 					" have IDATs."
 				]
 				)
